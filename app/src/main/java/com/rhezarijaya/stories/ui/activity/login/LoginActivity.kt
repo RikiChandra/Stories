@@ -74,11 +74,14 @@ class LoginActivity : AppCompatActivity() {
             }
 
         loginViewModel.isLoading().observe(this@LoginActivity) { isLoading: Boolean ->
-            binding.loginProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            binding.loginBtnLogin.isEnabled = !isLoading
-            binding.loginEmailField.isEnabled = !isLoading
-            binding.loginPasswordField.isEnabled = !isLoading
-            binding.loginTvRegister.visibility = if (isLoading) View.GONE else View.VISIBLE
+            // TODO boleh pakai binding apply agar tdk berulang
+            binding.apply {
+                loginProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                loginBtnLogin.isEnabled = !isLoading
+                loginEmailField.isEnabled = !isLoading
+                loginPasswordField.isEnabled = !isLoading
+                loginTvRegister.visibility = if (isLoading) View.GONE else View.VISIBLE
+            }
         }
     }
 }

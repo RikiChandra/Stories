@@ -12,19 +12,6 @@ class AppPreferences private constructor(private val dataStore: DataStore<Prefer
     private val USERID_KEY = stringPreferencesKey(Constants.USERID_PREFERENCES)
     private val TOKEN_KEY = stringPreferencesKey(Constants.TOKEN_PREFERENCES)
 
-    companion object {
-        @Volatile
-        private var INSTANCE: AppPreferences? = null
-
-        fun getInstance(dataStore: DataStore<Preferences>): AppPreferences {
-            return INSTANCE ?: synchronized(this) {
-                val instance = AppPreferences(dataStore)
-                INSTANCE = instance
-                return@synchronized instance
-            }
-        }
-    }
-
     fun getNamePrefs(): Flow<String?> {
         return dataStore.data.map {
             it[NAME_KEY]
@@ -64,6 +51,20 @@ class AppPreferences private constructor(private val dataStore: DataStore<Prefer
     suspend fun clearPrefs(){
         dataStore.edit {
             it.clear()
+        }
+    }
+
+    // TODO companion object paling bawah
+    companion object {
+        @Volatile
+        private var INSTANCE: AppPreferences? = null
+
+        fun getInstance(dataStore: DataStore<Preferences>): AppPreferences {
+            return INSTANCE ?: synchronized(this) {
+                val instance = AppPreferences(dataStore)
+                INSTANCE = instance
+                return@synchronized instance
+            }
         }
     }
 }

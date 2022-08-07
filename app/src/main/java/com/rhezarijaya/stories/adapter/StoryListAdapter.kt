@@ -20,18 +20,6 @@ import com.rhezarijaya.stories.util.Constants
 class StoryListAdapter :
     ListAdapter<Story, StoryListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
-    companion object {
-        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
-            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
-                return oldItem.id?.equals(newItem.id) as Boolean
-            }
-
-            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ItemStoryBinding.inflate(
@@ -59,6 +47,7 @@ class StoryListAdapter :
             formatCreatedAt(data.createdAt ?: "")
         )
 
+        // TODO pakai interface dgn holder nya...
         holder.itemView.setOnClickListener {
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(Constants.INTENT_MAIN_TO_DETAIL, data)
@@ -84,4 +73,16 @@ class StoryListAdapter :
     }
 
     inner class ViewHolder(val binding: ItemStoryBinding) : RecyclerView.ViewHolder(binding.root)
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem.id?.equals(newItem.id) as Boolean
+            }
+
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 }

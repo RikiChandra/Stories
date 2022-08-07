@@ -149,12 +149,14 @@ class CreateStoryActivity : AppCompatActivity() {
         }
 
         createStoryViewModel.isLoading().observe(this) { isLoading ->
-            binding.createProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-            binding.createBtnCamera.isEnabled = !isLoading
-            binding.createBtnGallery.isEnabled = !isLoading
-            binding.createBtnClear.isEnabled = !isLoading
-            binding.createEtDescription.isEnabled = !isLoading
-            binding.createBtnSubmit.isEnabled = !isLoading
+            binding.apply {
+                createProgressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+                createBtnCamera.isEnabled = !isLoading
+                createBtnGallery.isEnabled = !isLoading
+                createBtnClear.isEnabled = !isLoading
+                createEtDescription.isEnabled = !isLoading
+                createBtnSubmit.isEnabled = !isLoading
+            }
         }
 
         createStoryViewModel.getCreateError().observe(this) { createError ->
