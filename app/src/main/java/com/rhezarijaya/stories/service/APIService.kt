@@ -93,12 +93,9 @@ fun formatCreatedAt(dateString: String): String {
         val date = sdf.parse(dateString)
 
         result =
-            date.let {
-                if (it != null) {
-                    SimpleDateFormat("yyyy-mm-dd HH:mm:ss", Locale.getDefault()).format(it)
-                }
-            }
-                .toString()
+            date?.let {
+                SimpleDateFormat("yyyy-mm-dd HH:mm:ss", Locale.getDefault()).format(it)
+            }.toString()
     } catch (e: Exception) {
     }
 
